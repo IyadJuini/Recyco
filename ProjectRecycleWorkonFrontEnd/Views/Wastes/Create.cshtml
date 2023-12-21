@@ -1,0 +1,139 @@
+﻿@model ProjectRecycle.Models.Waste
+
+@{
+    ViewData["Title"] = "Create";
+    int? companyId = (int)Context.Session.GetInt32("companyId");
+}
+<head>
+    <!--~ Link CSS  -->
+    <link rel="stylesheet" href="~/css/Dashboard.css">
+    <!--~ Link BOOTSTRAP  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!--~ Link Boxicons  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    @await Html.PartialAsync("_SideBar")
+    <section class="dashboard">
+        <div class="top d-flex justify-content-between">
+            <div></div>
+            <div class="top-links align-content-end">
+                <a asp-area="" class="text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-area="" class="text-dark" asp-controller="Offers" asp-action="Index">Explore</a>
+            </div>
+
+            <div class="Btn" style="background-color:#427D9D;">
+
+                <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+
+                <form asp-action="Logout" asp-controller="AppUsers" method="post">
+                    <button type="submit" class="btn shadow-none border-0 text-white" style="background-color:#427D9D;">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title d-flex justify-content-center mb-3">
+                    <span class="h3 text-center text-success">Submit Waste</span>
+                </div>
+            </div>
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input hidden asp-for="CompanyId" value="@companyId" />
+                <div class="d-flex justify-content-center">
+                    <div class="d-flex flex-column gap-2 w-75  card shadow p-5">
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label fw-semibold"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="control-label fw-semibold">Price (/Kg)</label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Quantity" class="control-label fw-semibold">Quantity (/t)</label>
+                            <input asp-for="Quantity" class="form-control" />
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div><div class="form-group">
+                            <label asp-for="Description" class="control-label fw-semibold"></label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AnalyseDocument" class="control-label fw-semibold"></label>
+                            <input type="file" asp-for="AnalyseDocument" class="form-control" accept=".pdf" />
+                            <input hidden asp-for="AnalyseDocument" value="test" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AvailableDate" class="control-label fw-semibold"></label>
+                            <input asp-for="AvailableDate" class="form-control" />
+                            <span asp-validation-for="AvailableDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EndingAvailability" class="control-label fw-semibold"></label>
+                            <input asp-for="EndingAvailability" class="form-control" />
+                            <span asp-validation-for="EndingAvailability" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Type" class="control-label fw-semibold"></label>
+                            <select asp-for="Type" class="form-control">
+                                <option selected value="0">Plastic</option>
+                                <option value="1">Metal</option>
+                                <option value="2">Concrete</option>
+                                <option value="3">Wood</option>
+                                <option value="4">Paper</option>
+                                <option value="5">hazardous</option>
+                            </select>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                        <input type="submit" value="Create" class="btn btn-primary w-100 my-3 "/>                
+                        <div>
+                            <a asp-action="Wastes" asp-controller="Companies" asp-route-id="@companyId">Back to Wastes</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </section>
+</body>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+}
+

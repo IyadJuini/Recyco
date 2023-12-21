@@ -1,0 +1,177 @@
+﻿
+@model IEnumerable<ProjectRecycle.Models.Company>
+
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int? adminId = (int)Context.Session.GetInt32("adminId");
+
+}
+<head>
+    <!--~ Link CSS  -->
+    <link rel="stylesheet" href="~/css/Dashboard.css">
+    <!--~ Link BOOTSTRAP  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!--~ Link Boxicons  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+</head>
+
+<body>
+
+    @await Html.PartialAsync("_SideBarAdmin")
+    <section class="dashboard">
+        <div class="top d-flex justify-content-between">
+            <div></div>
+            <div class="top-links align-content-end">
+                <a asp-area="" class="text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-area="" class="text-dark" asp-controller="Offers" asp-action="Index">Explore</a>
+            </div>
+
+            <div class="Btn" style="background-color:#427D9D;">
+
+                <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+
+                <form asp-action="Logout" asp-controller="AppUsers" method="post">
+                    <button type="submit" class="btn shadow-none border-0 text-white" style="background-color:#427D9D;">Logout</button>
+                </form>
+            </div>
+        </div>
+        <div class="dash-content">
+
+            <div class="d-flex flex-row justify-content-around p-3 gap-3 text-white">
+                <div class="col-3 rounded py-3 px-4 pt-4" style="background-image:linear-gradient(to bottom right,#445069, white);">
+                    <div class="d-flex flex-row justify-content-between">                       
+                        <h4>Companies</h4>
+                        <h4><i class='bx bxs-business'></i></h4>
+                    </div>
+                    <h3 class="fw-bolder ps-2 mt-3">
+                        @ViewBag.Companies
+                    </h3>
+                </div>
+                <div class="col-3 rounded py-3 px-4 pt-4" style="background-image:linear-gradient(to bottom right,#427D9D, white);">
+                    <div class="d-flex flex-row justify-content-between">                       
+                        <h4>Wastes</h4>
+                        <h4><i class='bx bx-recycle'></i></h4>
+                    </div>
+                    <h3 class="fw-bolder ps-3 mt-3 pb-4">
+                        @ViewBag.Wastes
+                    </h3>
+                </div>
+                <div class="col-3 rounded py-3 px-4 pt-4" style="background-image:linear-gradient(to bottom right,#FEBA0D, white);">
+                    <div class="d-flex flex-row justify-content-between">                       
+                        <h4>Offers</h4>
+                        <h4><i class='bx bx-money-withdraw'></i></h4>
+                    </div>
+                    <h3 class="fw-bolder ps-2 mt-3">
+                        @ViewBag.Offers
+                    </h3>
+                </div>
+                <div class="col-3 rounded py-3 px-4 pt-4" style="background-image:linear-gradient(to bottom right,#5B9A8B, white);">
+                    <div class="d-flex flex-row justify-content-between">                       
+                        <h4>Bids</h4>
+                        <h4><i class='bx bx-money'></i></h4>
+                    </div>
+                    <h3 class="fw-bolder ps-2 mt-3">
+                        @ViewBag.Bids
+                    </h3>
+                </div>
+                
+            </div>
+            <div class="d-flex flex-row justify-content-around p-3 gap-3">
+                <div class="col-6 p-4">
+                    
+                        <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+                    
+                </div>
+                <div class="col-6 p-4">
+                    <div style="height:400px;width:400px;margin:0 auto">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+                <div class="d-flex flex-row justify-content-center p-3 gap-2">
+                <div class="col-8 p-4">
+                    <table class="table shadow-lg">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Email</th>
+                                <th>WebUrl</th>
+                                <th>Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var companie in Model)
+                            {
+                                <tr>
+                                    <td>@companie.Name</td>
+                                    <td>@companie.CompanyId</td>
+                                    <td>@companie.Email</td>
+                                    <td>@companie.WebUrl</td>
+                                    <td>@companie.PhoneNumber</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+        </div>
+
+    </section>
+    <script src="~/js/Dashboard.js"></script>
+    <script type="module" src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script nomodule src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["Companies", "Wastes", "Offers", "Bids"],
+                    datasets: [{
+                        backgroundColor: [
+                            "#445069CC",
+                            "#427D9DCC",
+                            "#FEBA0DCC",
+                            "#5B9A8BCC"                                  
+                        ],
+                        data: [@ViewBag.Companies, @ViewBag.Wastes, @ViewBag.Offers, @ViewBag.Bids]
+                    }]
+                }
+            });
+        });
+    </script>
+    <script>
+        const xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const yValues = [0, 32, 50, 56, 60, 79, 100, 110, 124, 134, 145];
+
+        new Chart("myChart2", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: "Bids",
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "#5B9A8BCC",
+                    borderColor: "#5B9A8B",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: true },
+                scales: {
+                    yAxes: [{ ticks: { min: 0, max: 150 } }],
+                }
+            }
+        });
+    </script>
+
+</body>
+

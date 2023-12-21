@@ -1,0 +1,109 @@
+﻿@model ProjectRecycle.Models.Company
+
+@{
+    ViewData["Title"] = "Create";
+}
+<!--~ Link CSS  -->
+<link rel="stylesheet" href="~/css/Register.css">
+
+<div class="bgImg " style="background-image: url(https://wallpapers.com/images/high/recycling-pictures-4210-x-3258-90wry2jtn4eoyv7c.webp);">
+
+    <section class="card  ">
+        <header class="fw-bold h1 mb-3">Create Company</header>
+        <form class="form " asp-action="Register" asp-controller="Companies" enctype="multipart/form-data">
+            <div class="row d-flex ">
+
+                <div class="col-6 " >
+                    <div class="input-box">
+                        <label asp-for="Name" class="mb-2">Company Name</label>
+                        <input asp-for="Name" type="text" required />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="WebUrl">Web URL</label>
+                        <input asp-for="WebUrl" type="text" required />
+                        <span class="text-danger" asp-validation-for="WebUrl"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="Logo">Company Logo</label>
+                         <input type="file" class="form-control"  asp-for="Logo" accept=".jpg, .jpeg, .png" /> 
+                        @* <input type="file" class="form-control" id="basic-url" aria-describedby="basic-addon3" asp-for="Logo" accept=".jpg, .jpeg, .png"> *@
+                        <input hidden asp-for="Logo" value="test" />
+                        <span class="text-danger" asp-validation-for="Logo"></span>
+
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="Address">Address</label>
+                        <input asp-for="Address" type="text" required />
+                        <span class="text-danger" asp-validation-for="Address"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="PhoneNumber">Phone Number</label>
+                        <input asp-for="PhoneNumber" type="number" required />
+                        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" type="text" required />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="Description">Description</label>
+                        <input asp-for="Description" type="text" required />
+                        <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>
+
+
+                </div>
+
+                <div class="col-6">
+
+                    <div class="input-box address">
+                        <label asp-for="ActivityType">Activity Type</label>
+                        <div class="select-box">
+                            <select asp-for="ActivityType">
+                                <option selected value="0">industrial</option>
+                                <option value="1">commercial</option>
+                                <option value="2">construction</option>
+                                <option value="3">argriculture</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="ActivityType"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="Password">Password</label>
+                        <input asp-for="Password" type="password" required />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" type="password" required />
+                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-success mt-3 text-center w-25" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </section>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

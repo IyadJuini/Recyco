@@ -1,0 +1,68 @@
+﻿@{
+    int? adminId = (int)Context.Session.GetInt32("adminId");
+}
+
+
+<style>
+    nav .logo-image img {
+        width: 160px;
+        object-fit: cover;
+        margin-top: 26px;
+        border-radius:0;
+    }
+</style>
+
+<nav style="background-color:#DDF2FD !important;" class="border-0">
+    <div class="logo-name d-flex justify-content-center">
+        <div class="logo-image">
+            <img src="~/img/logo3.png" alt="Recyco">
+        </div>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li>
+                <a asp-action="Dashboard" asp-controller="AppUsers" asp-route-id="@adminId">
+                    <i class='bx bx-stats'></i>
+                    <span class="link-name ">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="Details" asp-controller="AppUsers" asp-route-id="@adminId">
+                    <i class='bx bx-user'></i>
+                    <span class="link-name ">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="AllCompanies" asp-controller="AppUsers" asp-route-id="@adminId">
+                    <i class='bx bxs-business'></i>
+                    <span class="link-name">Companies</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="AllOffer" asp-controller="AppUsers" asp-route-id="@adminId">
+                    <i class='bx bx-money-withdraw'></i>
+                    <span class="link-name">Offres</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="AllWaste" asp-controller="AppUsers" asp-route-id="@adminId">
+                    <i class='bx bx-recycle'></i>
+                    <span class="link-name">Wastes</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="AllUsers" asp-controller="AppUsers" asp-route-id="@adminId">
+                    <i class='bx bxs-user-detail'></i>
+                    <span class="link-name">Users</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="Index" asp-controller="Missions" asp-route-id="@adminId">
+                    <i class='bx bx-check-circle'></i>
+                    <span class="link-name">Missions</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

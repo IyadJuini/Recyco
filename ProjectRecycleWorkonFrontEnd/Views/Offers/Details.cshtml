@@ -1,0 +1,131 @@
+﻿@model ProjectRecycle.Models.Offer
+
+@{
+    ViewData["Title"] = "Details";
+
+}
+
+
+
+<div class="container d-flex justify-content-center  " style="min-height:70vh; margin-bottom:100px;">
+
+
+    <div class="card  mb-3 w-100 p-5 " style="margin-top:100px;  background-color: #9cb7c5; ">
+
+        <div class="  d-flex justify-content-center gap-5">
+             
+            <div class=" card  w-50 ms-5 p-2 ">
+                <h1 class="card-title text-center  p-4 ">
+                    @Html.DisplayFor(item => Model.Waste.Title)
+                </h1>
+                <div class="card-img container ms-4">
+                    @switch (Model.Waste.Type.ToString())
+                            {
+                            case "Plastic":
+                            <img src="~/img/Plastic.jpeg" style="height:300px; width:450px;" />
+                                break;
+                            case "Metal":
+                            <img src="~/img/Metale.jpeg" style="height:300px; width:450px;" />
+                                break;
+                            case "Paper":
+                            <img src="~/img/Paper.jpeg" style="height:300px; width:450px;" />
+                                break;
+                            case "Concrete":
+                            <img src="~/img/Concrete.jpg" style="height:300px; width:450px;" />
+                                break;
+                            case "hazardous":
+                            <img src="~/img/hazardous.jpg" style="height:300px; width:450px;" />
+                                break;
+                            case "Wood":
+                            <img src="~/img/Wood.jpeg" style="height:300px; width:450px;" />
+                                break;
+                        }
+                </div>
+                <dl class=" d-felx flex-column ps-5 pt-3 ">
+                    <dt class=" row ">
+                        Description :
+                    </dt>
+                    <dd class="row  ">
+                        @Html.DisplayFor(model => model.Waste.Description)
+                    </dd>
+                    <dt class="row">
+                        Type :
+                    </dt>
+                    <dd class="row">
+                        @Html.DisplayFor(model => model.Waste.Type)
+                    </dd>
+                    <dt class="row">
+                        Start Price :
+                    </dt>
+                    <dd class="row fw-bold text-danger">
+                        @Html.DisplayFor(model => model.StartPrice) $
+                    </dd>
+                    <dt class="row">
+                        Start Date :
+                    </dt>
+                    <dd class="row">
+                        @Html.DisplayFor(model => model.CreatedAt)
+                    </dd>
+                    <dt class="row">
+                        End Date :
+                    </dt>
+                    <dd class="row">
+                        @Html.DisplayFor(model => model.EndDate)
+                    </dd>
+                    <dt class="row">
+                        Last Bid :
+                    </dt>
+                    <dd class="row text-danger fw-bold ">
+                        @Model.Bids.OrderByDescending(b => b.BidId).FirstOrDefault()?.Price $
+                    </dd>
+                </dl>
+            </div>
+            
+            <div class="card border-0 shadow-none bg-transparent w-50">
+
+                <div class=" d-flex justify-content-center mt-5" style="margin">
+
+                    @if (Context.Session.GetInt32("companyId") == null)
+                    {
+                        <div class="card box-shadow  d-flex flex-column  text-white w-75 p-5 rounded" style="background: linear-gradient(15deg, #0e3d2b 0%, #80d0c7 100%);">
+                            <h4 class="text-light">WANT TO BID ON THIS ITEM?</h4>
+                            <h5>an Account is needed To place a bid.</h5>
+                            <div class="d-flex gap-2 ">
+                                <a class="btn btn-outline-secondary text-black-50" asp-controller="Companies" asp-action="Create">Create an Account</a>
+                                <a class="btn btn-outline-secondary text-black-50" asp-controller="Home" asp-action="LoginPage">Sign In</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+
+                        int? companyId = (int)Context.Session.GetInt32("companyId");
+                        <div class="card box-shadow  d-flex flex-column  text-white w-75 p-3 rounded" style="background: linear-gradient(15deg, #0e3d2b 0%, #80d0c7 100%);">
+
+                            @{
+                                int leftDays = Convert.ToInt32((Model.EndDate - DateTime.UtcNow.Date).TotalDays);
+
+                            }
+                            <h3 class=" text-light bg-danger p-1 "> @leftDays Days Left !!</h3>
+                            <h5 class="ms-3 text-light">Bid By Cliking On The Button Below</h5>
+                            <form asp-action="Bid" asp-controller="Offers">
+
+                                <input type="hidden" asp-for="@companyId" />
+                                <input type="hidden" asp-for="@Model.OfferId" />
+                                <input class="form-control" type="number" name="Price" />
+                                <button class="btn btn-success  mt-2" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+        @*         <div class="ms-5">
+        <a asp-action="Index">Back to Explore</a>
+        </div> *@
+    </div>
+
+</div>

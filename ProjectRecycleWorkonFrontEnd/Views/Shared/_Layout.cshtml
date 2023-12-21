@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Recyco</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min (2).css" />
+    @* <link rel="stylesheet" href="~/ProjectRecycle.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+    @await Html.PartialAsync("_Navbar")
+ <div class="jaafer">
+
+        @RenderBody()
+    </div>
+    @if (ViewBag.ShowFooter ?? true)
+    {
+        @await Html.PartialAsync("_Footer")
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+</body>
+
+</html>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .jaafer {
+        flex: 1;
+    }
+</style>

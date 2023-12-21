@@ -1,0 +1,52 @@
+﻿
+#slider {
+   
+    display: flex;
+    gap: 15px;
+    font-size: 50px;
+}
+
+#sliderValue {
+    display: flex;
+    color: #0f855d;
+    font-weight: 700;
+}
+
+.start {
+    opacity: 0;
+}
+
+.animation {
+    animation: fade .3s forwards;
+}
+
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.holder-animation {
+    animation: holder 4s;
+}
+
+@keyframes holder {
+    0% {
+        opacity: 1;
+    }
+
+    95% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

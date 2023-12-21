@@ -1,0 +1,48 @@
+﻿h1 {
+    text-align: start;
+    text-transform: uppercase;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 50px;
+    letter-spacing: 1px;
+    color: #333;
+}
+
+    h1 span {
+        display: inline-block;
+        animation: slideLeft 1.5s forwards;
+        opacity: 0;
+        transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+h5 {
+  font-family: "Montserrat Medium";
+  
+ 
+  transform: scale(0.94);
+  animation: scale 2s forwards cubic-bezier(0.1, 1, 0.89, 3);
+}
+@keyframes scale {
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

@@ -1,0 +1,316 @@
+﻿@model ProjectRecycle.Controllers.OffersController.MyModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.8/swiper-bundle.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="~/css/Swiper.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
+
+
+<div>
+
+
+
+
+
+    <div class="introcontainer">
+        <!-- Slider main container -->
+        @*
+        <h1 class="text-center text-light mt-5 ">Explore</h1> *@
+
+        <h2 class="text-center mt-5 mb-5 ">Don't Miss Out! Last Call to Bid </h2>
+
+
+        <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper ">
+                @* <h1>@Model.Count()</h1> *@
+                <!-- Slides -->
+                @foreach (var item in Model.LastSixRecordsByEndDate)
+                {
+                    <div class="swiper-slide">
+                        <div class="card  ">
+
+                            <div class="card ong">
+                                @switch (item.Waste.Type.ToString())
+                                {
+                                    case "Plastic":
+                                        <img src="~/img/Plastic.jpeg" />
+                                        break;
+                                    case "Metal":
+                                        <img src="~/img/Metale.jpeg" />
+                                        break;
+                                    case "Paper":
+                                        <img src="~/img/Paper.jpeg" />
+                                        break;
+                                    case "Concrete":
+                                        <img src="~/img/Concrete.jpg" />
+                                        break;
+                                    case "hazardous":
+                                        <img src="~/img/hazardous.jpg" />
+                                        break;
+                                    case "Wood":
+                                        <img src="~/img/Wood.jpeg" />
+                                        break;
+
+                                }
+
+                                <div class="text">
+                                </div>
+                                <div class="title-box">
+                                    <h2>
+                                        @Html.DisplayFor(modelItem => item.Waste.Title)
+                                    </h2>
+
+                                    <h4 class="text-bg-warning w-75">Type :@Html.DisplayFor(modelItem => item.Waste.Type)</h4>
+                                    <h4 class="text-bg-danger w-75">Start Price :@Html.DisplayFor(modelItem => item.StartPrice) $</h4>
+
+
+                                    @{
+                                        int totalDays = Convert.ToInt32((item.EndDate - DateTime.UtcNow.Date).TotalDays);
+
+                                    }
+
+                                    <h4 class="bg-light text-danger  w-75">Only @totalDays Days Left !</h4>
+
+
+
+                                    <a asp-action="Details" asp-route-id="@item.OfferId" class="text-light fw-bolder">View Offer</a>
+                                    <div class="seperator"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-arrows">
+                <div class="swiper-button-prev"><span></span> </div>
+                <div class="swiper-button-next"><span></span></div>
+            </div>
+
+
+            <!-- If we need scrollbar -->
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+    <div class="">
+        <h2 class="text-center mt-5 mb-5 ">ALL Offers</h2>
+        <div class="category d-flex justify-content-center ">
+
+            <figure class="snip1566">
+
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample14" />
+                <figcaption><p class="text-icon text-light">All </p></figcaption>
+                <a onclick="wasteTypeFilter('all')"></a>
+            </figure>
+            <figure class="snip1566">
+
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample14" />
+                <figcaption><p class="text-icon text-light">Concrete</p></figcaption>
+                <a onclick="wasteTypeFilter('concrete')"></a>
+            </figure>
+
+            <figure class="snip1566 ">
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample17" />
+                <figcaption><p class="text-icon text-light">Hazardous</p></figcaption>
+                <a onclick="wasteTypeFilter('hazardous')"></a>
+            </figure>
+            <figure class="snip1566">
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample19" />
+                <figcaption><p class="text-icon text-light">Metal</p></figcaption>
+                <a onclick="wasteTypeFilter('metal')"></a>
+            </figure>
+            <figure class="snip1566">
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample20" />
+                <figcaption><p class="text-icon text-light">Paper</p></figcaption>
+                <a onclick="wasteTypeFilter('paper')"></a>
+            </figure>
+            <figure class="snip1566 ">
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample17" />
+                <figcaption><p class="text-icon text-light">Plastic</p></figcaption>
+                <a onclick="wasteTypeFilter('plastic')"></a>
+            </figure>
+            <figure class="snip1566">
+                <img src="https://www.rachel-plantier.fr/92/gris-souris.jpg" alt="sq-sample19" />
+                <figcaption><p class="text-icon text-light">Wood</p></figcaption>
+                <a onclick="wasteTypeFilter('wood')"></a>
+            </figure>
+        </div>
+
+        @* <button class="btn btn-danger btn-sm">All Offers</button> *@
+
+
+
+
+
+
+        <div class="container column justify-content-center">
+            <div class="  row d-flex justify-content-center  gap-4 mb-5" id="offers">
+
+                @foreach (var item in Model.AllOffers)
+                {
+                    <div class="card shadow mb-3" style="width: 18rem;">
+                        <div class="card-header ">
+                            @switch (item.Waste.Type.ToString())
+                            {
+                                case "Plastic":
+                                    <img src="~/img/Plastic.jpeg" style="height:20vh;" />
+                                    break;
+                                case "Metal":
+                                    <img src="~/img/Metale.jpeg" style="height:20vh;" />
+                                    break;
+                                case "Paper":
+                                    <img src="~/img/Paper.jpeg" style="height:20vh;" />
+                                    break;
+                                case "Concrete":
+                                    <img src="~/img/Concrete.jpg" style="height:20vh;" />
+                                    break;
+                                case "hazardous":
+                                    <img src="~/img/hazardous.jpg" style="height:20vh;" />
+                                    break;
+                                case "Wood":
+                                    <img src="~/img/Wood.jpeg" style="height:20vh;" />
+                                    break;
+                            }
+                        </div>
+                        <div class="card-body">
+
+                            <a class="card-title text-decoration-underline h4 mb-3" asp-action="Details" asp-route-id="@item.OfferId" class="text-light fw-bolder">
+                                @Html.DisplayFor(modelItem => item.Waste.Title)
+                            </a>
+                            <h6 class="card-subtitle mt-2 mb-2 text-muted">
+                                Type: @Html.DisplayFor(modelItem => item.Waste.Type)
+                            </h6>
+                            <dl class=" d-felx flex-column ps-3 pt-3 ">
+                                <dt class=" row ">
+                                    Description :
+                                </dt>
+                                <dd class="row  ">
+                                    @Html.DisplayFor(modelItem => item.Waste.Description)
+                                </dd>
+                                <dt class="row">
+                                    Start Price :
+                                </dt>
+                                <dd class="row fw-bold text-danger">
+                                    @Html.DisplayFor(modelItem => item.StartPrice) $
+                                </dd>
+                                <dt class="row">
+                                    Start Date :
+                                </dt>
+                                <dd class="row">
+                                    @Html.DisplayFor(modelItem => item.Waste.CreatedAt)
+                                </dd>
+                                <dt class="row">
+                                    End Date :
+                                </dt>
+                                <dd class="row">
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </dd>
+                            </dl>
+                        </div>
+                        <a class="text-info fw-bold p-3" asp-action="Details" asp-route-id="@item.OfferId">View Offer</a>
+                    </div>
+
+
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <h2 class="text-center mt-5 mb-5">Popular Auctions </h2>
+    <div class="swiper-container">
+        <!-- Additional required wrapper -->
+
+        <div class="swiper-wrapper ">
+            <!-- Slides -->
+            @foreach (var item in Model.MostSixPopularRecords)
+            {
+
+                <div class="swiper-slide">
+                    <div class="card  ">
+                        <div class="card ong">
+                            @switch (item.Waste.Type.ToString())
+                            {
+                                case "Plastic":
+                                    <img src="~/img/Plastic.jpeg" />
+                                    break;
+                                case "Metal":
+                                    <img src="~/img/Metale.jpeg" />
+                                    break;
+                                case "Paper":
+                                    <img src="~/img/Paper.jpeg" />
+                                    break;
+                                case "Concrete":
+                                    <img src="~/img/Concrete.jpg" />
+                                    break;
+                                case "hazardous":
+                                    <img src="~/img/hazardous.jpg" />
+                                    break;
+                                case "Wood":
+                                    <img src="~/img/Wood.jpeg" />
+                                    break;
+
+                            }
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <h2>
+                                    @Html.DisplayFor(modelItem => item.Waste.Title)
+                                </h2>
+                                <h4 class="text-bg-warning w-75">Type :@Html.DisplayFor(modelItem => item.Waste.Type)</h4>
+                                <h4 class="text-bg-danger w-75">Start Price :@Html.DisplayFor(modelItem => item.StartPrice) $</h4>
+
+                                <a asp-action="Details" asp-route-id="@item.OfferId" class="text-light fw-bolder">View Offer</a>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-arrows">
+            <div class="swiper-button-prev"><span></span> </div>
+            <div class="swiper-button-next"><span></span></div>
+        </div>
+
+        <!-- If we need scrollbar -->
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/offer.js"> </script>
+    <script src="~/js/Swiper.js"> </script>
+    <script src="~/js/Category.js"> </script>
+    }
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('allOffersButton').addEventListener('click', function () {
+            getAllOffers().then(offers => {
+                // Handle the offers here
+                console.log(offers);
+                // You can update the UI with the fetched offers
+            });
+        });
+    });
+</script>

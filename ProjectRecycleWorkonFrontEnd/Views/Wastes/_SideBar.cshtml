@@ -1,0 +1,72 @@
+﻿@{
+    int? companyId = (int)Context.Session.GetInt32("companyId");
+}
+
+
+<style>
+    :root {
+        /* Colors */
+        --primary-color: #00468d;
+        --panel-color: #FFF;
+        --text-color: #000;
+        --black-light-color: #e9ecef;
+        --border-color: #e6e5e5;
+        --toggle-color: #DDD;
+        --box1-color: #cef5aa;
+        --box2-color: #E7BC91;
+        --box3-color: #d5b1f6;
+        --title-icon-color: #fff;
+        /* Transition */
+        --tran-05: all 0.5s ease;
+        --tran-03: all 0.3s ease;
+        --tran-03: all 0.2s ease;
+
+    }
+
+    nav .logo-image img {
+        width: 160px;
+        object-fit: cover;
+        margin-top: 26px;
+        border-radius:0;
+    }
+</style>
+
+<nav style="background-color:#427D9D !important;">
+    <div class="logo-name d-flex justify-content-center">
+        <div class="logo-image">
+            <img src="~/img/logo1.png" alt="Recyco">
+        </div>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            
+            <li>
+                <a asp-action="Details" asp-controller="Companies" asp-route-id="@companyId">
+                    <i class='bx bx-user'></i>
+                    <span class="link-name ">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="Dashboard" asp-controller="Companies" asp-route-id="@companyId">
+                    <i class='bx bx-home-alt-2'></i>
+                    <span class="link-name">Dashboard</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a asp-action="Wastes" asp-controller="Companies" asp-route-id="@companyId">
+                    <i class='bx bx-recycle'></i>
+                    <span class="link-name">Wastes</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="Bids" asp-controller="Companies" asp-route-id="@companyId">
+                    <i class='bx bxs-badge-dollar'></i>
+                    <span class="link-name">Bids</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
